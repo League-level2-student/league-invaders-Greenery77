@@ -23,6 +23,8 @@ void setup() {
 	
 	frame.setSize(WIDTH, HEIGHT);
 	
+	frame.addKeyListener(GP);
+	
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 }
