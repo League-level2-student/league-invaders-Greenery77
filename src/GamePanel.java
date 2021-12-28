@@ -21,11 +21,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	    Font subFont1;
 	    Font subFont2;
 	    Timer frameDraw;
+	    Timer alienSpawn;
 	    Rocketship rs = new Rocketship(250, 700, 50, 50);
 	    ObjectManager om = new ObjectManager(rs);
 	    public static BufferedImage image;
 	    public static boolean needImage = true;
 	    public static boolean gotImage = false;	
+	    
+	public void startGame() {
+		  
+		alienSpawn = new Timer(1000, om);
+	    alienSpawn.start(); 
+		  
+	  }
 	    
 	@Override
 	public void paintComponent(Graphics g){
@@ -141,9 +149,26 @@ public void keyPressed(KeyEvent e) {
 	if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 	    if (currentState == END) {
 	        currentState = MENU;
-	    } else {
-	        currentState++;
 	    }
+	    else{
+	        currentState++;
+	        if (currentState == GAME) {
+	        	
+		    	startGame();
+		    	
+		    }
+	        if (currentState == END) {
+
+		    	alienSpawn.stop();
+		    	
+		    }
+	    }
+	   
+	}
+	if (e.getKeyCode()==KeyEvent.VK_SPACE) {
+		
+		om.addProjectile(rs.getProjectile());
+		
 	}
 	if (currentState == GAME && e.getKeyCode()==KeyEvent.VK_UP ) {
 	    rs.up=true;
